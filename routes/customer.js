@@ -7,7 +7,7 @@ module.exports = function(app, io, authcode) {
     newPurchasetoBiller = function(req, res) {
         if(req.headers.authcode==authcode){
             io.of('/biller').to(req.body.id_company).emit('Query_bills')
-            customerNamespace.to(req.body.id_user).emit("Update_purchase")
+            customerNamespace.to(req.body.email).emit("Update_purchase", req.body.id_company)
             res.send({ response: "Ok" }).status(200);
         }
         else{res.send({ response: "Bad authcode" }).status(403);}
@@ -16,7 +16,7 @@ module.exports = function(app, io, authcode) {
     newPurchasetoDispatcher = function(req, res) {
         if(req.headers.authcode==authcode){
             io.of('/dispatcher').to(req.body.id_office).emit('Query_dispatchs')
-            customerNamespace.to(req.body.id_user).emit("Update_purchase")
+            customerNamespace.to(req.body.email).emit("Update_purchase", req.body.id_company)
             res.send({ response: "Ok" }).status(200);
         }
         else{res.send({ response: "Bad authcode" }).status(403);}
@@ -24,7 +24,7 @@ module.exports = function(app, io, authcode) {
     //POST - Se actualiza la dirección en todas las tiendas
     updateDirection = function(req, res) {
         if(req.headers.authcode==authcode){
-            customerNamespace.to(req.body.id_user).emit("Update_direction")
+            customerNamespace.to(req.body.email).emit("Update_direction")
             res.send({ response: "Ok" }).status(200);
         }
         else{res.send({ response: "Bad authcode" }).status(403);}

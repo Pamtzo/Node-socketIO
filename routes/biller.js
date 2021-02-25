@@ -9,7 +9,7 @@ module.exports = function(app, io, authcode) {
         if(req.headers.authcode==authcode){
             billerNamespace.to(req.body.id_company).emit("Query_bills")
             io.of('/dispatcher').to(req.body.id_office).emit("Query_dispatchs")
-            io.of('/customer').to(req.body.id_user).emit('Update_purchase')
+            io.of('/customer').to(req.body.email).emit('Update_purchase')
             res.send({ response: "Ok" }).status(200);
         }
         else{res.send({ response: "Bad authcode" }).status(403);}
