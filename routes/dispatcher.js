@@ -7,7 +7,7 @@ module.exports = function(app,io, authcode) {
     updateDispatch = function(req, res) {
         if(req.headers.authcode==authcode){
             console.log("dispatcher",req.body)
-            dispatcherNamespace.to(req.body.id_office).emit("Query_dispatchs",false)
+            dispatcherNamespace.to(req.body.id_office).emit("Query_dispatchs",{sounds:false})
             io.of('/customer').to(req.body.email).emit('Update_purchase', req.body.id_company)
             res.send({ response: "Ok" }).status(200);
         }

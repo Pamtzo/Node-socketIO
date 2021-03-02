@@ -17,7 +17,7 @@ module.exports = function(app, io, authcode) {
     newPurchasetoDispatcher = function(req, res) {
         if(req.headers.authcode==authcode){
             console.log("dispatcher-customner")
-            io.of('/dispatcher').to(req.body.id_office).emit('Query_dispatchs',true)
+            io.of('/dispatcher').to(req.body.id_office).emit('Query_dispatchs',{sounds:true, type_service:req.body.type_service})
             customerNamespace.to(req.body.email).emit("Update_purchase", req.body.id_company)
             res.send({ response: "Ok" }).status(200);
         }
