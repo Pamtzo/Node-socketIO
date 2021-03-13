@@ -27,7 +27,7 @@ module.exports = function(app, io, authcode) {
     updateDirection = function(req, res) {
         if(req.headers.authcode==authcode){
             console.log("new direction")
-            customerNamespace.to(req.body.email).emit("Update_direction")
+            customerNamespace.to(req.body.email).emit("Update_direction",{new_distance:req.body.new_distance, id_office:req.body.id_office})
             res.send({ response: "Ok" }).status(200);
         }
         else{res.send({ response: "Bad authcode" }).status(403);}
