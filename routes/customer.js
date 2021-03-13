@@ -32,5 +32,5 @@ module.exports = function(app, io, authcode) {
     //Link routes and functions
     app.post('/customer-to-biller',upload.none(),newPurchasetoBiller);
     app.post('/customer-to-dispatcher',upload.none(),newPurchasetoDispatcher);
-    app.post('/update-direction', upload.none(), updateDirection)
+    app.post('/update/address', upload.none(), updateDirection)
 }
