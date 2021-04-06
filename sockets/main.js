@@ -24,8 +24,7 @@ const io = socketIo(server, { cors: {
 
 const authcode = "e7ca945126590e7c905fa1f0cafa90be7a28d51d28da399dee58cc70947e82e1"
 
-require('../routes/dispatcher')(app,io,authcode)
-require('../routes/biller')(app,io,authcode)
+require('../routes/company')(app,io,authcode)
 require('../routes/customer')(app,io,authcode)
 
 require('./namespaces/dispatcher')(io)

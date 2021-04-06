@@ -3,6 +3,10 @@ module.exports = function(io) {
 
     customerNamespace.on('connection', socket => {
         console.log("customer connected")
+        socket.on("Join_office", office =>{
+            console.log("office", office)
+            socket.join(office.toString())
+        })
         socket.on('Join_user', id=>{
             console.log("user", id)
             socket.join(id.toString())
