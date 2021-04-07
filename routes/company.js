@@ -28,8 +28,14 @@ module.exports = function(app,io, authcode) {
 
     //POST - Cerrar office
     closeOffice = function(req, res) {
+        let office = req.body.id_offices.replace('[','')
+        office = office.replace(']','')
+        office = office.split(',')
         if(req.headers.authcode==authcode){
-            io.of('/customer').to(req.body.id_office).emit('Office_closed')
+            for(id of office){
+                console.log(id)
+                io.of('/customer').to(id).emit('Office_closed')
+            }
             res.send({ response: "Ok" }).status(200);
         }
         else{res.send({ response: "Bad authcode" }).status(403);}

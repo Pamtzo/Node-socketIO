@@ -7,6 +7,10 @@ module.exports = function(io) {
             console.log("office", office)
             socket.join(office.toString())
         })
+        socket.on("Leave_office", office =>{
+            console.log("office", office)
+            socket.leave(office.toString())
+        })
         socket.on('Join_user', id=>{
             console.log("user", id)
             socket.join(id.toString())
