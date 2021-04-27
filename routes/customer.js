@@ -7,6 +7,7 @@ module.exports = function(app, io, authcode) {
     newPurchasetoBiller = function(req, res) {
         if(req.headers.authcode==authcode){
             console.log("biller customer")
+            console.log(req.body)
             io.of('/biller').to(req.body.id_company).emit('Query_bills')
             customerNamespace.to(req.body.email).emit("Update_purchase", req.body.id_company)
             res.send({ response: "Ok" }).status(200);
@@ -17,6 +18,7 @@ module.exports = function(app, io, authcode) {
     newPurchasetoDispatcher = function(req, res) {
         if(req.headers.authcode==authcode){
             console.log("dispatcher-customner")
+            console.log(req.body)
             io.of('/dispatcher').to(req.body.id_office).emit('Query_dispatchs',{sounds:true, type_service:req.body.type_service})
             customerNamespace.to(req.body.email).emit("Update_purchase", req.body.id_company)
             res.send({ response: "Ok" }).status(200);
@@ -27,6 +29,7 @@ module.exports = function(app, io, authcode) {
     updateDirection = function(req, res) {
         if(req.headers.authcode==authcode){
             console.log("new direction")
+            console.log(req.body)
             customerNamespace.to(req.body.email).emit("Update_direction",{new_distance:req.body.new_distance, id_office:req.body.id_office, id_company: req.body.id_company})
             res.send({ response: "Ok" }).status(200);
         }

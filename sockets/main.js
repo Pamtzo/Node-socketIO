@@ -7,6 +7,11 @@ const app = express();
 const http = require('http');
 const fs = require('fs');
 
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json()); // body en formato json
+app.use(bodyParser.urlencoded({ extended: false })); //body formulario
+
 app.use(index);
 
 const options = {
