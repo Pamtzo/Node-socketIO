@@ -7,7 +7,7 @@ module.exports = function(app,io, authcode) {
     //POST - Se actualiza un despacho
     updateDispatch = function(req, res) {
         if(req.headers.authcode==authcode){
-            console.log("dispatcher",req.body)
+            console.log("updateDispatch",req.body)
             dispatcherNamespace.to(req.body.id_office).emit("Query_dispatchs",{sounds:false})
             io.of('/customer').to(req.body.email).emit('Update_purchase', req.body.id_company)
             res.send({ response: "Ok" }).status(200);
@@ -18,7 +18,7 @@ module.exports = function(app,io, authcode) {
     //POST - Se facturo el pedido
     billed = function(req, res) {
         if(req.headers.authcode==authcode){
-            console.log("biller",req.body)
+            console.log("billed",req.body)
             billerNamespace.to(req.body.id_company).emit("Query_bills")
             io.of('/dispatcher').to(req.body.id_office).emit("Query_dispatchs")
             io.of('/customer').to(req.body.email).emit('Update_purchase')
@@ -27,12 +27,10 @@ module.exports = function(app,io, authcode) {
         else{res.send({ response: "Bad authcode" }).status(403);}
     };
 
-    //POST - Cerrar office
+    //POST - Cerrar officeJSON
     closeOffice = function(req, res) {
-        console.log("close",req.body)
-        let office = req.body.id_offices.replace('[','')
-        office = office.replace(']','')
-        office = office.split(',')
+        console.log("closeOffice",req.body)
+        let office = JSON.parse(req.body.id_offices)
         if(req.headers.authcode==authcode){
             for(id of office){
                 console.log(id)
