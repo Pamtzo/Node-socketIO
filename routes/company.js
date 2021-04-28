@@ -34,7 +34,7 @@ module.exports = function(app,io, authcode) {
         if(req.headers.authcode==authcode){
             for(id of office){
                 console.log(id)
-                io.of('/customer').to(id).emit('Office_closed')
+                io.of('/customer').to(id.toString()).emit('Office_closed')
             }
             res.send({ response: "Ok" }).status(200);
         }
