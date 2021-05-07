@@ -40,7 +40,7 @@ module.exports = function(app, io, authcode) {
         if(req.headers.authcode==authcode){
             console.log("reloadPage")
             console.log(req.body)
-            customerNamespace.to(req.body.id_company).emit("Company_refactor")
+            customerNamespace.to(req.body.id_company).emit("Company_refactor",{'is_maintenance':req.body.is_maintenance})
             res.send({ response: "Ok" }).status(200);
         }
         else{res.send({ response: "Bad authcode" }).status(403);}
